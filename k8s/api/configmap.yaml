@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-golang-cm
+  namespace: golang-course
+data:
+  SERVER_PORT: "8080"
+  REDIS_HOST: "redis.golang-course.svc.cluster.local"
+  REDIS_PORT: "6379"
