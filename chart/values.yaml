@@ -1,0 +1,24 @@
+namespace: golang-course
+
+api:
+  image_version: "latest"
+  replicas: 3
+  host: api.golangcourse.dev
+  port: 8080
+  svc:
+    name: api
+    port: 80
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "512Mi"
+
+redis:
+  image_version: "latest"
+  replicas: 1
+  port: 6379
+  secret:
+    pass: "MTIzNA=="
