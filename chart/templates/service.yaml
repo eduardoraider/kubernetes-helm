@@ -1,15 +1,22 @@
+{{- $services := dict "api" .Values.api "redis" .Values.redis -}}
+{{- range $svc, $values := $services }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "chart.fullname" . }}
-  labels:
-    {{- include "chart.labels" . | nindent 4 }}
+  name: {{ $.Release.Name }}-{{ $svc }}-svc
+  namespace: {{ $.Values.namespace }}
 spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
   selector:
-    {{- include "chart.selectorLabels" . | nindent 4 }}
+    app: {{ $.Release.Name }}-{{ $svc }}
+  type: ClusterIP
+  ports:
+    - name: {{ $svc }}
+      protocol: TCP
+      {{ if $values.svc }}
+      port: {{ $values.svc.port }}
+      {{ else }}
+      port: {{ $values.port }}
+      {{ end }}
+      targetPort: {{ $values.port }}
+---
+  {{ end }}

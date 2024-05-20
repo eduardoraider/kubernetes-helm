@@ -1,4 +1,4 @@
-# Go Docker Kubernetes
+# Go Application in Docker using Kubernetes and Helm
 
 Build image and run container
 
